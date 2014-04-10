@@ -3,11 +3,12 @@ from direccion import Directions
 
 class Car(threading.Thread):
   """docstring for Vehiculo"""
-  def __init__(self,posicionX,posicionY,direction):
+  def __init__(self,posicionX,posicionY,direction, semaforo):
     super(Car, self).__init__()
     self.direction = direction
     self.posicionX = posicionX
     self.posicionY = posicionY
+    self.nextIntercesion = semaforo
     print self.name
 
   def accelerate (self):
@@ -31,7 +32,24 @@ class Car(threading.Thread):
       if self.posicionX < 1:
           self.posicionX = 1024
 
-  def brake ():
-    pass
+  def revisarSemaforo(self, calle):
+    if len (calle.intercessiones) == 0: return "verde"
+    estado=""
+    for i in xrange(0,len(calle.intercessiones)):
+      if self.direction == Directions().east or self.direction == Directions().west:
+        if self.nextIntercesion == calle.intercessiones[i].x:
+          estado=calle.intercessiones[i].semaforo.estadoX
+          try :
+            self.nextIntercesion =calle.intercessiones[i+1].x
+          except :
+            self.nextIntercesion = calle.intercessiones[0].x
+
+        return estado
+
+  def run(self,calle):
+    while self.revisarSemaforo(calle) == "verde":
+      self.accelerate()
+
   def reduce ():
     pass
+
