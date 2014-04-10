@@ -30,12 +30,12 @@ class Simulator(object):
         for rail in xrange(0,street.rails):
             for x in xrange(street.x,WIDTH,32):
                 self.screen.blit(self.asphalt_sprite,(x,220+32*rail))
-    #     for car in street.cars:
-    #         c= pygame.image.load(self.car_path+str(car.direction)+".png").convert_alpha()
-    #         print "mueve"
-    #         self.screen.blit(c,(car.posicionX,car.posicionY))
-    #         car.accelerate()
-    # pygame.display.flip()
+        for car in street.cars:
+            c= pygame.image.load(self.car_path+str(car.direction)+".png").convert_alpha()
+            print "mueve"
+            self.screen.blit(c,(car.posicionX,car.posicionY))
+            car.accelerate()
+    pygame.display.flip()
 
 def main():
     pygame.display.set_caption("Simulador Semaforo")

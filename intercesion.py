@@ -1,4 +1,4 @@
-import threading 
+import threading
 
 class intercession(object):
   """docstring for intercession"""
@@ -8,10 +8,4 @@ class intercession(object):
     self.y = y
     self.semaforo = semaforo
 
-    #Evento X y Y que representa el semaforo de cada calle. 
-
-  eventoX = threading.event()
-  eventoY = threading.event()
-
-  self.intercession = semaforo(eventoX, eventoY)
-  x.iniciar()
+    #Evento X y Y que representa el semaforo de cada calle.
