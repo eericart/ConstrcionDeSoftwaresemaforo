@@ -9,11 +9,5 @@ class intercession(object):
     eventoX = threading.event()
     eventoY = threading.event()
     self.semaforo = semaforo(eventoX, eventoY)
+    self.semaforo.iniciar()
 
-<<<<<<< HEAD
-  def crearInterseccion(): 
-  	
-     self.semaforo.iniciar()
-=======
-    #Evento X y Y que representa el semaforo de cada calle.
->>>>>>> fe37b483f447c25e780669bca3141721417c0848
