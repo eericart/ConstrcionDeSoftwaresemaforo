@@ -10,4 +10,3 @@ class intercession(object):
     eventoY = threading.event()
     self.semaforo = semaforo(eventoX, eventoY)
     self.semaforo.iniciar()
-
