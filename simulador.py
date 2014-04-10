@@ -4,8 +4,9 @@
 import sys
 import pygame
 from pygame.locals import *
-import Calle
-import Vehiculo
+import calle
+import vehiculo
+import direccion
 
 WIDTH = 1024
 HEIGHT = 640
@@ -18,21 +19,30 @@ class Simulator(object):
     self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
     self.asphalt_sprite = pygame.image.load("Images/asphalt-1.png").convert_alpha()
     self.background_image = pygame.image.load("Images/background.png").convert()
-
+    self.car_path = "Images/car-"
 
 
   def draw (self):
     self.screen.blit(self.background_image, (0, 0))
-    for street in self.streets:
-      for rail in xrange(0,street.rails):
-        for x in xrange(street.inicioX,WIDTH,32):
-          self.screen.blit(self.asphalt_sprite,(x,220+32*rail))
 
+
+    for street in self.streets:
+        for rail in xrange(0,street.rails):
+            for x in xrange(street.x,WIDTH,32):
+                self.screen.blit(self.asphalt_sprite,(x,220+32*rail))
+    #     for car in street.cars:
+    #         c= pygame.image.load(self.car_path+str(car.direction)+".png").convert_alpha()
+    #         print "mueve"
+    #         self.screen.blit(c,(car.posicionX,car.posicionY))
+    #         car.accelerate()
+    # pygame.display.flip()
 
 def main():
     pygame.display.set_caption("Simulador Semaforo")
 
-    street = Calle.Street(0,320,2)
+    street = calle.Street(0,320,2,direccion.Directions().east)
+    car = vehiculo.Car(1000,220,direccion.Directions().east)
+    street.cars.append(car)
     simulator = Simulator()
     simulator.streets.append (street)
 
