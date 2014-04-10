@@ -1,55 +1,72 @@
 import threading
 from direccion import Directions
+from llist import dllist, dllistnode
+
 
 class Car(threading.Thread):
   """docstring for Vehiculo"""
-  def __init__(self,posicionX,posicionY,direction, semaforo):
+  def __init__(self,posicionX,posicionY,direction, interInicial):
     super(Car, self).__init__()
     self.direction = direction
     self.posicionX = posicionX
     self.posicionY = posicionY
-    self.nextIntercesion = semaforo
+    self.currentIntercesion = interInicial
     print self.name
 
-  def accelerate (self):
-    if self.direction == Directions().north:
-      self.posicionY -= 1
-      if self.posicionY < 1:
+  def accelerate (self,calle,speed=1):
+
+    if self.revisarSemaforo(calle) == "verde":
+      if self.direction == Directions().north:
+        self.posicionY -= 10+speed
+        if self.posicionY < 1:
           self.posicionY =640
 
-    elif self.direction == Directions().south:
-      self.posicionY += 1
-      if self.posicionY > 640:
+      elif self.direction == Directions().south:
+        self.posicionY += 10+speed
+        if self.posicionY > 640:
           self.posicionY = 0
 
-    elif self.direction == Directions().east:
-      self.posicionX += 1
-      if self.posicionX > 1024:
-           self.posicionX =0
+      elif self.direction == Directions().east:
+        self.posicionX += 10+speed
+        if self.posicionX > 1024:
+          self.posicionX =0
 
-    else :
-      self.posicionX -=  1
-      if self.posicionX < 1:
+      else :
+        self.posicionX -=  10+ speed
+        if self.posicionX < 1:
           self.posicionX = 1024
 
   def revisarSemaforo(self, calle):
-    if len (calle.intercessiones) == 0: return "verde"
-    estado=""
-    for i in xrange(0,len(calle.intercessiones)):
-      if self.direction == Directions().east or self.direction == Directions().west:
-        if self.nextIntercesion == calle.intercessiones[i].x:
-          estado=calle.intercessiones[i].semaforo.estadoX
-          try :
-            self.nextIntercesion =calle.intercessiones[i+1].x
-          except :
-            self.nextIntercesion = calle.intercessiones[0].x
+    self.nextInter(calle)
+    if self.direction == Directions().east or self.direction == Directions().west:
+      return self.currentIntercesion.semaforo.estadoX
+    else:
+      return self.currentIntercesion.semaforo.estadoY
 
-        return estado
+  def nextInter (self,calle):
+    intercesiones = dllist(calle.intercessiones)
+    inter = intercesiones.first
+    while True:
+      try :
+        if inter.value == self.currentIntercesion:
+          if self.direction == Directions().east or self.direction == Directions().north:
+            try:
+              self.currentIntercesion = inter.prev.value
+            except AttributeError:
+              self.currentIntercesion = intercesiones.last.value
+            break
+          else:
+            try:
+              self.currentIntercesion = inter.next.value
+            except AttributeError:
+              self.currentIntercesion = intercesiones.first.value
+            break
+      except:
+        break
+      inter = inter.next
 
-  def run(self,calle):
-    while self.revisarSemaforo(calle) == "verde":
-      self.accelerate()
 
-  def reduce ():
+  def reduce (self,calle):
+    self.accelerate(calle, -9)
     pass
 
