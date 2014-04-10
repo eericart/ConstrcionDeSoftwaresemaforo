@@ -25,7 +25,7 @@ class Semaforo():
       self.estadoX = "verde"
       self.eventoX.set()
       self.eventoY.clear()
-      
+
   def iniciar(self):
-  	self.cambio()
   	threading.Timer(15.0, self.iniciar).start()
+  	self.cambio()
