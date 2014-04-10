@@ -39,3 +39,6 @@ nosetests.xml
 #IDE
 .idea
 Images/Thumbs.db
+
+
+.fuse_*

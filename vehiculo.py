@@ -1,55 +1,49 @@
 import threading
 from direccion import Directions
+import pygame
 
-class Car(threading.Thread):
+
+class Car(threading.Thread, pygame.sprite.Sprite):
   """docstring for Vehiculo"""
-  def __init__(self,posicionX,posicionY,direction, semaforo):
+  def __init__(self,posicionX,posicionY,direction, interInicial):
     super(Car, self).__init__()
     self.direction = direction
-    self.posicionX = posicionX
-    self.posicionY = posicionY
-    self.nextIntercesion = semaforo
+    self.currentIntercesion = interInicial
+    self.car_path = "Images/car-"
+    self.image= pygame.image.load(self.car_path+str(self.direction)+".png").convert_alpha()
+    self.rect = self.image.get_rect()
+    self.rect.centerx  = posicionX
+    self.rect.centery = posicionY
+    self.estado = "verde"
     print self.name
 
-  def accelerate (self):
-    if self.direction == Directions().north:
-      self.posicionY -= 1
-      if self.posicionY < 1:
-          self.posicionY =640
+  def accelerate (self,calle,speed=1):
+    if self.estado == "verde":
+      if self.direction == Directions().north:
+        self.rect.centery -= 10+speed
+        if self.rect.centery < 1:
+          self.rect.centery =640
 
-    elif self.direction == Directions().south:
-      self.posicionY += 1
-      if self.posicionY > 640:
-          self.posicionY = 0
+      elif self.direction == Directions().south:
+        self.rect.centery += 10+speed
+        if self.rect.centery > 640:
+          self.rect.centery = 0
 
-    elif self.direction == Directions().east:
-      self.posicionX += 1
-      if self.posicionX > 1024:
-           self.posicionX =0
+      elif self.direction == Directions().east:
+        self.rect.centerx += 10+speed
+        if self.rect.centerx > 1024:
+          self.rect.centerx =0
 
-    else :
-      self.posicionX -=  1
-      if self.posicionX < 1:
-          self.posicionX = 1024
+      else :
+        self.rect.centerx -=  10+ speed
+        if self.rect.centerx < 1:
+          self.rect.centerx = 1024
 
-  def revisarSemaforo(self, calle):
-    if len (calle.intercessiones) == 0: return "verde"
-    estado=""
-    for i in xrange(0,len(calle.intercessiones)):
-      if self.direction == Directions().east or self.direction == Directions().west:
-        if self.nextIntercesion == calle.intercessiones[i].x:
-          estado=calle.intercessiones[i].semaforo.estadoX
-          try :
-            self.nextIntercesion =calle.intercessiones[i+1].x
-          except :
-            self.nextIntercesion = calle.intercessiones[0].x
+    for inter in calle.intercessiones :
+      if pygame.sprite.collide_rect(self, inter):
+        if self.direction == Directions().east or self.direction == Directions().west:
+          self.estado = inter.semaforo.estadoX
+        else:
+          self.estado = inter.semaforo.estadoY
 
-        return estado
-
-  def run(self,calle):
-    while self.revisarSemaforo(calle) == "verde":
-      self.accelerate()
-
-  def reduce ():
-    pass
 
