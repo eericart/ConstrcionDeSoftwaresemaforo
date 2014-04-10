@@ -7,6 +7,7 @@ from pygame.locals import *
 import calle
 import vehiculo
 import direccion
+import intercesion
 
 WIDTH = 1024
 HEIGHT = 640
@@ -34,17 +35,24 @@ class Simulator(object):
             c= pygame.image.load(self.car_path+str(car.direction)+".png").convert_alpha()
             print "mueve"
             self.screen.blit(c,(car.posicionX,car.posicionY))
-            car.accelerate()
     pygame.display.flip()
 
 def main():
     pygame.display.set_caption("Simulador Semaforo")
 
-    street = calle.Street(0,320,2,direccion.Directions().east)
-    car = vehiculo.Car(1000,220,direccion.Directions().east)
+    street = calle.Street(0,320,4,direccion.Directions().east)
+    inter= intercesion.intercession (4,220)
+    street.intercessiones.append(inter)
+    car = vehiculo.Car(1000,220,direccion.Directions().east,street.intercessiones[0].x)
     street.cars.append(car)
     simulator = Simulator()
     simulator.streets.append (street)
+
+    for street in simulator.streets:
+        for car in street.cars:
+            car.start()
+            car.run(street)
+
 
     while True:
         for events in pygame.event.get():
