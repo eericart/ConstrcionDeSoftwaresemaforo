@@ -25,14 +25,7 @@ class Semaforo():
       self.estadoX = "verde"
       self.eventoX.set()
       self.eventoY.clear()
-    print  "estadoY " + self.estadoY + "  >> estadoX " + self.estadoX
-    print "EventoY " +  str(self.eventoY.is_set()) +"  >> EventoX " +str(self.eventoX.is_set())
-
+      
   def iniciar(self):
   	self.cambio()
   	threading.Timer(15.0, self.iniciar).start()
-
-eventoX = threading.Event()
-eventoY = threading.Event()
-x = Semaforo(eventoX, eventoY)
-x.iniciar()
