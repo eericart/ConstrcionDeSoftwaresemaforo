@@ -16,14 +16,13 @@ HEIGHT = 640
 
 class Simulator(object):
   """docstring for Simulator"""
-  def __init__(self):
+  def __init__(self, screen):
     super(Simulator, self).__init__()
     self.streets = []
-    self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    self.screen = screen
     self.asphalt_sprite = pygame.image.load("Images/asphalt-1.png").convert_alpha()
     self.background_image = pygame.image.load("Images/background.png").convert()
-    self.car_path = "Images/car-"
-    self.inter_sprite = pygame.image.load("Images/asphalt-3.png").convert_alpha()
+
 
 
   def draw (self):
@@ -35,27 +34,27 @@ class Simulator(object):
             for x in xrange(street.x,WIDTH,32):
                 self.screen.blit(self.asphalt_sprite,(x,220+32*rail))
             try:
-                self.screen.blit(self.inter_sprite, (inter.x,inter.y))
+                self.screen.blit(inter.image,inter.rect)
             except AttributeError:
                 continue
 
 
         for car in street.cars:
-            c= pygame.image.load(self.car_path+str(car.direction)+".png").convert_alpha()
-            self.screen.blit(c,(car.posicionX,car.posicionY))
+            self.screen.blit(car.image,(car.rect))
 
             car.accelerate(street)
     pygame.display.flip()
 
 def main():
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Simulador Semaforo")
 
     street = calle.Street(0,320,4,direccion.Directions().east)
-    inter= intercesion.intercession (400,220)
+    inter= intercesion.intercession (340,220,4)
     street.intercessiones.append(inter)
     car = vehiculo.Car(1000,220,direccion.Directions().east,street.intercessiones[0])
     street.cars.append(car)
-    simulator = Simulator()
+    simulator = Simulator(screen)
     simulator.streets.append (street)
 
     while True:
