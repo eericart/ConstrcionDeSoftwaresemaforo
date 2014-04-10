@@ -9,7 +9,7 @@ class Semaforo():
     self.eventoX = eventX
     self.eventoY = eventY
     self.eventoX.set()
-    
+
   def cambio(self):
     if self.estadoX == "verde":
       self.estadoX = "amarillo"
