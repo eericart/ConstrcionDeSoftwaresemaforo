@@ -33,15 +33,10 @@ class Simulator(object):
         for rail, inter in itertools.izip_longest(xrange(0,street.rails), street.intercessiones):
             for x in xrange(street.x,WIDTH,32):
                 self.screen.blit(self.asphalt_sprite,(x,220+32*rail))
-            try:
-                self.screen.blit(inter.image,inter.rect)
-            except AttributeError:
-                continue
-
-
+            for y in xrange(street.y,WIDTH,32):
+                self.screen.blit(self.asphalt_sprite,(220+32*rail,y))				
         for car in street.cars:
             self.screen.blit(car.image,(car.rect))
-
             car.accelerate(street)
     pygame.display.flip()
 
@@ -55,8 +50,11 @@ def main():
     car = vehiculo.Car(1000,220,direccion.Directions().east,street.intercessiones[0])
     street.cars.append(car)
     simulator = Simulator(screen)
-    simulator.streets.append (street)
-
+    simulator.streets.append(street)
+    street2 = calle.Street(550,0,2,direccion.Directions().north)
+    inter= intercesion.intercession (340,220,4)
+    street.intercessiones.append(inter)
+    simulator.streets.append(street2)
     while True:
         for events in pygame.event.get():
             if events.type == QUIT:
