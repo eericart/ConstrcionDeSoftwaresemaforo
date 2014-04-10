@@ -11,12 +11,6 @@ class Street(object):
     self.directions = directions
     self.cars = []
 
-  def accelerate ():
-    pass
-  def brake ():
-    pass
-  def reduce ():
-    pass
 
 
 

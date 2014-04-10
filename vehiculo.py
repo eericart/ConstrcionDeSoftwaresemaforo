@@ -7,3 +7,10 @@ class Car(threading.Thread):
     self.posicionInicion = posicionInicion
     self.directions = directions
     print self.name
+
+  def accelerate ():
+    pass
+  def brake ():
+    pass
+  def reduce ():
+    pass
