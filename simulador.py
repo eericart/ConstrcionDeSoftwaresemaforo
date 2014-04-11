@@ -32,6 +32,8 @@ class Simulator(object):
             car.accelerate(street)
         for inter in street.intercessiones:
             pygame.draw.rect(self.screen, Color(inter.semaforo.estadoX),inter.rect,2)
+        for check in street.check:
+            pygame.draw.rect(self.screen, Color(check.semaforo.estadoX), check.rect, 2)
     pygame.display.flip()
 
 def main():
@@ -56,6 +58,13 @@ def main():
     car4 = vehiculo.Car(150,200,direccion.Directions().north)
     car2 = vehiculo.Car(525,500,direccion.Directions().north)
     car3 = vehiculo.Car(795, 0, direccion.Directions().south)
+
+    #Checks
+
+    check1 = intercesion.intercession(85, 348, 4)
+    check2 = intercesion.intercession(462, 348, 4)
+    check3 = intercesion.intercession(730, 348, 4)
+    streetPrinciparl.check.extend([check1, check2, check3])
 
     #Preparar
     streetPrinciparl.cars.append(car)
