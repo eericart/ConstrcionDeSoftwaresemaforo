@@ -21,20 +21,13 @@ class Simulator(object):
     self.streets = []
     self.screen = screen
     self.asphalt_sprite = pygame.image.load("Images/asphalt-1.png").convert_alpha()
-    self.background_image = pygame.image.load("Images/background.png").convert()
+    self.background_image = pygame.image.load("Images/background2.png").convert()
 
 
 
   def draw (self):
     self.screen.blit(self.background_image, (0, 0))
-
-
     for street in self.streets:
-        for rail, inter in itertools.izip_longest(xrange(0,street.rails), street.intercessiones):
-            for x in xrange(street.x,WIDTH,32):
-                self.screen.blit(self.asphalt_sprite,(x,220+32*rail))
-            for y in xrange(street.y,WIDTH,32):
-                self.screen.blit(self.asphalt_sprite,(220+32*rail,y))				
         for car in street.cars:
             self.screen.blit(car.image,(car.rect))
             car.accelerate(street)
