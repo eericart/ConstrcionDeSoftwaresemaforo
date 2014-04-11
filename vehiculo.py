@@ -81,6 +81,9 @@ class Car(threading.Thread, pygame.sprite.Sprite):
 
               self.estado = inter.semaforo.estadoX
 
+              if self.direction == Directions().east and self.self.rect.center > inter.x:
+                self.estado = "green"
+
             else: 
               self.estado = "green"
 
