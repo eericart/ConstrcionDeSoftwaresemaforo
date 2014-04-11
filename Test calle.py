@@ -4,6 +4,7 @@ from pygame.locals import *
 import vehiculo
 import direccion
 import intercesion
+import time
 
 
 class Street(object):
@@ -17,12 +18,11 @@ class Street(object):
 	self.directions = directions
 	self.cars = []
 
-  	def carGenerator(waitTime):
+  	def carGenerator(tiempoEspera):
 		car = []
 		for x in range(10):
 			car[x] = vehiculo.Car(1000,220,direccion.Directions().east,self.intercessiones[0])
 			print 'Creado el ', car[x], 'carro'
 			self.cars.append(car)
-
-    #def carGenerator(tiempoEspera):
+			time.sleep(tiempoEspera)
 	
