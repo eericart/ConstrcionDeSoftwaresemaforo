@@ -65,12 +65,14 @@ class Car(threading.Thread, pygame.sprite.Sprite):
 
     for check in calle.check:
       if pygame.sprite.collide_rect(self, check):
-        if check.semaforo.estadoX == "yellow" or check.semaforo.estadoY == "yellow": 
-          if self.direction == Directions().east or self.direction == Directions().west:
-            self.estado = check.semaforo.estadoX
-          else:
-            self.estado = check.semaforo.estadoY
 
+        if self.direction == Directions().east or self.direction == Directions().west: 
+          if check.semaforo.estadoX == "yellow" or check.semaforo.estadoX == "red":
+            self.estado = "yellow"
+        else:
+          if check.semaforo.estadoY == "yellow" or check.semaforo.estadoY == "red":
+            self.estado = "yellow"
+   
     for inter,car in itertools.izip_longest(calle.intercessiones, calle.cars):
       try:
         if pygame.sprite.collide_rect(self, inter):

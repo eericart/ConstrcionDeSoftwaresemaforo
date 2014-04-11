@@ -32,8 +32,8 @@ class Simulator(object):
             car.accelerate(street)
         for inter in street.intercessiones:
             pygame.draw.rect(self.screen, Color(inter.semaforo.estadoX),inter.rect,2)
-        for check in street.check:
-            pygame.draw.rect(self.screen, Color(check.semaforo.estadoX), check.rect, 2)
+        #for check in street.check:
+            #pygame.draw.rect(self.screen, Color(check.semaforo.estadoX), check.rect, 2)
     pygame.display.flip()
 
 def main():
@@ -43,9 +43,9 @@ def main():
     #TEST
 
     #Intercesiones
-    inter= intercesion.intercession (135,348,4)
-    inter2= intercesion.intercession (512,348,4)
-    inter3 = intercesion.intercession(780, 348, 4)
+    inter= intercesion.intercession (135,348,4, 50, 102)
+    inter2= intercesion.intercession (512,348,4, 50, 102)
+    inter3 = intercesion.intercession(780, 348, 4, 50, 102)
 
     #Calles
     streetPrinciparl = calle.Street(0,320,4,direccion.Directions().east)
@@ -61,10 +61,28 @@ def main():
 
     #Checks
 
-    check1 = intercesion.intercession(85, 348, 4)
-    check2 = intercesion.intercession(462, 348, 4)
-    check3 = intercesion.intercession(730, 348, 4)
-    streetPrinciparl.check.extend([check1, check2, check3])
+    check11 = intercesion.intercession(85, 348, 4, 50, 102)
+    check12 = intercesion.intercession(185, 348, 4, 50, 102)
+    check21 = intercesion.intercession(462, 348, 4, 50, 102)
+    check22 = intercesion.intercession(562, 348, 4, 50, 102)
+    check31 = intercesion.intercession(730, 348, 4, 50, 102)
+    check32 = intercesion.intercession(830, 348, 4, 50, 102)
+    streetPrinciparl.check.extend([check11, check12, check21, check22, check31, check32])
+
+    check1A = intercesion.intercession(135, 450, 4, 50, 50)
+    street.check.append(check1A)
+    check1B = intercesion.intercession(135, 298, 4, 50, 50)
+    street.check.append(check1B)
+
+    check2A = intercesion.intercession(512, 450, 4, 50, 50)
+    street2.check.append(check2A)
+    check2B = intercesion.intercession(512, 298, 4, 50, 50)
+    street2.check.append(check2B)
+
+    check3A = intercesion.intercession(780, 450, 4, 50, 50)
+    street3.check.append(check3A)
+    check3B = intercesion.intercession(780, 298, 4, 50, 50)
+    street3.check.append(check3B)
 
     #Preparar
     streetPrinciparl.cars.append(car)
