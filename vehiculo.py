@@ -7,10 +7,9 @@ import itertools
 
 class Car(threading.Thread, pygame.sprite.Sprite):
   """docstring for Vehiculo"""
-  def __init__(self,posicionX,posicionY,direction, interInicial):
+  def __init__(self,posicionX,posicionY,direction):
     super(Car, self).__init__()
     self.direction = direction
-    self.currentIntercesion = interInicial
     self.car_path = "Images/car-"
     self.image= pygame.image.load(self.car_path+str(self.direction)+".png").convert_alpha()
     self.rect = self.image.get_rect()
