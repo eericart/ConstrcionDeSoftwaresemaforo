@@ -16,11 +16,11 @@ class Car(threading.Thread, pygame.sprite.Sprite):
     self.rect = self.image.get_rect()
     self.rect.centerx  = posicionX
     self.rect.centery = posicionY
-    self.estado = "verde"
+    self.estado = "green"
     print self.name
 
   def accelerate (self,calle,speed=1):
-    if self.estado == "verde":
+    if self.estado == "green":
       if self.direction == Directions().north:
         self.rect.centery -= 1+speed
         if self.rect.centery < 1:

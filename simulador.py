@@ -30,8 +30,8 @@ class Simulator(object):
         for car in street.cars:
             self.screen.blit(car.image,(car.rect))
             car.accelerate(street)
-        for s in street.intercessiones:
-            pygame.draw.rect(self.screen, Color("blue"),s.rect,2)
+        for inter in street.intercessiones:
+            pygame.draw.rect(self.screen, Color(inter.semaforo.estadoX),inter.rect,2)
     pygame.display.flip()
 
 def main():

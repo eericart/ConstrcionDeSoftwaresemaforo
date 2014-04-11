@@ -4,29 +4,29 @@ import threading
 class Semaforo():
   """docstring for ClassName"""
   def __init__(self, eventX, eventY):
-    self.estadoX = "verde"
-    self.estadoY = "rojo"
+    self.estadoX = "green"
+    self.estadoY = "red"
     self.eventoX = eventX
     self.eventoY = eventY
     self.eventoX.set()
 
   def cambio(self):
-    if self.estadoX == "verde":
-      self.estadoX = "amarillo"
-    elif self.estadoX == "amarillo":
-      self.estadoX = "rojo"
-      self.estadoY = "verde"
+    if self.estadoX == "green":
+      self.estadoX = "yellow"
+    elif self.estadoX == "yellow":
+      self.estadoX = "red"
+      self.estadoY = "green"
       self.eventoX.clear()
       self.eventoY.set()
-    elif self.estadoY == "verde":
-      self.estadoY = "amarillo"
-    elif self.estadoY == "amarillo":
-      self.estadoY = "rojo"
-      self.estadoX = "verde"
+    elif self.estadoY == "green":
+      self.estadoY = "yellow"
+    elif self.estadoY == "yellow":
+      self.estadoY = "red"
+      self.estadoX = "green"
       self.eventoX.set()
       self.eventoY.clear()
     print self.estadoX
 
   def iniciar(self):
-  	threading.Timer(2.0, self.iniciar).start()
+  	threading.Timer(3.0, self.iniciar).start()
   	self.cambio()
