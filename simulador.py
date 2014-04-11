@@ -8,7 +8,6 @@ import calle
 import vehiculo
 import direccion
 import intercesion
-import itertools
 
 
 WIDTH = 1024
@@ -31,6 +30,8 @@ class Simulator(object):
         for car in street.cars:
             self.screen.blit(car.image,(car.rect))
             car.accelerate(street)
+        for s in street.intercessiones:
+            pygame.draw.rect(self.screen, Color("blue"),s.rect,2)
     pygame.display.flip()
 
 def main():
@@ -38,16 +39,25 @@ def main():
     pygame.display.set_caption("Simulador Semaforo")
 
     street = calle.Street(0,320,4,direccion.Directions().east)
-    inter= intercesion.intercession (340,220,4)
+    inter= intercesion.intercession (320,348,4)
     street.intercessiones.append(inter)
-    car = vehiculo.Car(1000,220,direccion.Directions().east,street.intercessiones[0])
+    car = vehiculo.Car(1000,380,direccion.Directions().east,street.intercessiones[0])
     street.cars.append(car)
     simulator = Simulator(screen)
     simulator.streets.append(street)
+    car2 = vehiculo.Car(500,380,direccion.Directions().north,street.intercessiones[0])
     street2 = calle.Street(550,0,2,direccion.Directions().north)
-    inter= intercesion.intercession (340,220,4)
-    street.intercessiones.append(inter)
+    street2.cars.append(car2)
+    inter2= intercesion.intercession (500,348,4)
+    street2.intercessiones.append(inter2)
     simulator.streets.append(street2)
+    dirt= pygame.Rect(0, 100, 10, 10)
+
+    for street in simulator.streets:
+        for car in street.cars:
+            car.start()
+
+
     while True:
         for events in pygame.event.get():
             if events.type == QUIT:
