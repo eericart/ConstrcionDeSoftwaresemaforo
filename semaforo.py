@@ -1,5 +1,6 @@
 import time
 import threading
+from random import randint
 
 class Semaforo():
   """docstring for ClassName"""
@@ -28,5 +29,5 @@ class Semaforo():
     print self.estadoX
 
   def iniciar(self):
-  	threading.Timer(3.0, self.iniciar).start()
+  	threading.Timer(randint(2,9), self.iniciar).start()
   	self.cambio()

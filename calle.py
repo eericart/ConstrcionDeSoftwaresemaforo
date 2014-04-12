@@ -10,10 +10,4 @@ class Street(object):
     self.intercessiones = []
     self.directions = directions
     self.cars = []
-    self.check = []
-
-
-
-
-
-    
+    #self.check = []
