@@ -18,6 +18,7 @@ class Car(threading.Thread, pygame.sprite.Sprite):
     self.estado = "green"
     print self.name
 
+
   def accelerate (self,calle,speed=1):
     if self.estado == "green":
       if self.direction == Directions().north:
@@ -61,25 +62,22 @@ class Car(threading.Thread, pygame.sprite.Sprite):
         if self.rect.centerx < 1:
           self.rect.centerx = 1024
 
-
-
     for inter,car in itertools.izip_longest(calle.intercessiones, calle.cars):
       try:
         if pygame.sprite.collide_rect(self, inter):
           if self.direction == Directions().east or self.direction == Directions().west:
               self.estado = inter.semaforo.estadoX
-
-              if self.direction == Directions().east and self.rect.centerx > inter.x:
+              if self.direction == Directions().east and self.rect.right > inter.rect.left+3:
                 self.estado = "green"
-              elif self.direction == Directions().west and self.rect.centerx < inter.x:
+              elif self.direction == Directions().west and self.rect.left < inter.rect.right+3:
                 self.estado = "green"
-
           else:
+
             self.estado = inter.semaforo.estadoY
-            if self.direction == Directions().south and self.rect.centery > inter.y:
-                self.estado = "green"
-            elif self.direction == Directions().north and self.rect.centery < inter.y:
-                self.estado = "green"
+            if self.direction == Directions().south and self.rect.bottom < inter.rect.top+3:
+               self.estado = "green"
+            elif self.direction == Directions().north and self.rect.top > inter.rect.bottom+3:
+                 self.estado = "green"
 
         if pygame.sprite.collide_rect(self, car) and self != car:
           if self.direction == Directions().east or self.direction == Directions().west:
@@ -88,3 +86,4 @@ class Car(threading.Thread, pygame.sprite.Sprite):
             self.estado = inter.semaforo.estadoY
       except AttributeError:
         continue
+
