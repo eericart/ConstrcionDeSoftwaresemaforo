@@ -19,25 +19,24 @@ class Car(threading.Thread, pygame.sprite.Sprite):
     print self.name
 
   def accelerate (self,calle,speed=1):
-
     if self.estado == "green":
       if self.direction == Directions().north:
-        self.rect.centery -= 2+speed
+        self.rect.centery -= 1+speed
         if self.rect.centery < 1:
           self.rect.centery =640
 
       elif self.direction == Directions().south:
-        self.rect.centery += 2+speed
+        self.rect.centery += 1+speed
         if self.rect.centery > 640:
           self.rect.centery = 0
 
       elif self.direction == Directions().east:
-        self.rect.centerx += 2+speed
+        self.rect.centerx += 1+speed
         if self.rect.centerx > 1024:
           self.rect.centerx =0
 
       else :
-        self.rect.centerx -=  2+ speed
+        self.rect.centerx -=  1+ speed
         if self.rect.centerx < 1:
           self.rect.centerx = 1024
 
@@ -61,6 +60,7 @@ class Car(threading.Thread, pygame.sprite.Sprite):
         self.rect.centerx -=  speed
         if self.rect.centerx < 1:
           self.rect.centerx = 1024
+
 
 
     for inter,car in itertools.izip_longest(calle.intercessiones, calle.cars):
@@ -88,7 +88,3 @@ class Car(threading.Thread, pygame.sprite.Sprite):
             self.estado = inter.semaforo.estadoY
       except AttributeError:
         continue
-
-
-
-

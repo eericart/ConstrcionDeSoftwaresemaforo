@@ -43,15 +43,15 @@ def main():
     #TEST
 
     #Intercesiones
-    inter= intercesion.intercession (135,348,4, 50, 102)
-    inter2= intercesion.intercession (512,348,4, 50, 102)
-    inter3 = intercesion.intercession(780, 348, 4, 50, 102)
+    inter= intercesion.intercession (135,348, 50, 102)
+    inter2= intercesion.intercession (512,348, 50, 102)
+    inter3 = intercesion.intercession(780, 348, 50, 102)
 
     #Calles
-    streetPrinciparl = calle.Street(0,320,4,direccion.Directions().east)
-    street = calle.Street(0,320,4,direccion.Directions().north)
-    street2 = calle.Street(550,0,2,direccion.Directions().north)
-    street3 = calle.Street(800, 0, 2, direccion.Directions().north)
+    streetPrinciparl = calle.Street(0,320,direccion.Directions().east)
+    street = calle.Street(0,320,direccion.Directions().north)
+    street2 = calle.Street(550,0,direccion.Directions().north)
+    street3 = calle.Street(800, 0, direccion.Directions().north)
 
     #Cars
     car = vehiculo.Car(1000,360,direccion.Directions().east)

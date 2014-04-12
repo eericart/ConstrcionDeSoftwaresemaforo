@@ -4,7 +4,7 @@ import pygame
 
 class intercession(pygame.sprite.Sprite):
   """docstring for intercession"""
-  def __init__(self, x,y,rails, sizeX, sizeY):
+  def __init__(self, x,y,sizeX, sizeY):
     super(intercession, self).__init__()
 
     self.x = x
