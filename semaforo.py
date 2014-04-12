@@ -29,5 +29,8 @@ class Semaforo():
     print self.estadoX
 
   def iniciar(self):
-  	threading.Timer(randint(2,9), self.iniciar).start()
-  	self.cambio()
+    if self.estadoX == "green" or self.estadoY == "green":
+  	  threading.Timer(2, self.iniciar).start()
+    else:
+      threading.Timer(7, self.iniciar).start()
+    self.cambio()

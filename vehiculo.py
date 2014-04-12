@@ -18,26 +18,26 @@ class Car(threading.Thread, pygame.sprite.Sprite):
     self.estado = "green"
     print self.name
 
-  def accelerate (self,calle,speed=1):
+  def accelerate (self,calle,speed=0.2):
 
     if self.estado == "green":
       if self.direction == Directions().north:
-        self.rect.centery -= 2+speed
+        self.rect.centery -= 0.5+speed
         if self.rect.centery < 1:
           self.rect.centery =640
 
       elif self.direction == Directions().south:
-        self.rect.centery += 2+speed
+        self.rect.centery += 0.5+speed
         if self.rect.centery > 640:
           self.rect.centery = 0
 
       elif self.direction == Directions().east:
-        self.rect.centerx += 2+speed
+        self.rect.centerx += 0.5+speed
         if self.rect.centerx > 1024:
           self.rect.centerx =0
 
       else :
-        self.rect.centerx -=  2+ speed
+        self.rect.centerx -=  0.5+ speed
         if self.rect.centerx < 1:
           self.rect.centerx = 1024
 
